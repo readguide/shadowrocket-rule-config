@@ -1,6 +1,9 @@
 // Clash Verge / Mihomo enhancement script: saving + whitelist.
 // Public: contains no subscription URL or credential. Installed per airport profile.
 function main(config, profileName) {
+  // Defense in depth: the local installer additionally matches private subscription URL identities.
+  // "钱" is the verified Clash display alias of Shadowrocket's "钱-1".
+  if (!new Set(['吹雪云-0','搅局者','钱','钱-1','良心云-1']).has(profileName)) return config;
   const raw = (config.proxies || []).filter(p => p && typeof p.name === 'string').map(p => p.name);
   const names = raw.filter(n => !/^(?:STATUS=|剩余流量|套餐到期|距离下次重置|到期时间|有效期|自动选择|故障转移|DIRECT|REJECT)/i.test(n));
   if (!names.length) return config;

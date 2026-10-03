@@ -42,7 +42,7 @@ function main(config, profileName) {
   for(const name of services){
     let first=name==='AI'&&regionNames.includes('新加坡节点')?'新加坡节点':
       ['YouTube','Telegram','Emby'].includes(name)?defaultGroup:
-      ['Spotify','PayPal','Amazon','苹果服务','微软服务','哔哩哔哩','游戏平台'].includes(name)?'DIRECT':'PROXY';
+      ['Emby','Spotify','PayPal','Amazon','苹果服务','微软服务','哔哩哔哩','游戏平台'].includes(name)?'DIRECT':'PROXY';
     let members=[first,...(first==='DIRECT'?['DIRECT']:[]),'PROXY',...foundLow,...regionNames];
     if(name==='哔哩哔哩')members=members.filter(n=>!regionNames.includes(n)||['香港节点','台湾节点'].includes(n));
     create(name,'fallback',members);

@@ -16,9 +16,9 @@ function main(config, profileName) {
     ['台湾节点', /🇹🇼|🇨🇳台湾|台湾|台灣|台北|Taiwan|Taipei|\bTW\b/i],
     ['韩国节点', /🇰🇷|韩国|韓國|首尔|Korea|\bKR\b/i]
   ];
-  const multiplier = /(?:^|[^\d.])0\.(?:0[1-9]\d*|[1-9]\d*)(?:x|X|倍|[^\d.]|$)/;
-  const ultra = /(?:^|[^\d.])0\.0[1-9]\d*(?:x|X|倍|[^\d.]|$)/;
-  const low = /(?:^|[^\d.])0\.[1-9]\d*(?:x|X|倍|[^\d.]|$)/;
+  const multiplier = /(?:^|[^\d.])0\.(?:0[1-9]\d*|[1-9]\d*)(?=$|[^\d.])/;
+  const ultra = /(?:^|[^\d.])0\.0[1-9]\d*(?=$|[^\d.])/;
+  const low = /(?:^|[^\d.])0\.[1-9]\d*(?=$|[^\d.])/;
   const excluded = n => /(?:剩余|到期|套餐|流量|重置|说明|官网|联系|订阅|公告)/i.test(n);
   const groups=[];
   const opts={url:'http://www.gstatic.com/generate_204',interval:600};

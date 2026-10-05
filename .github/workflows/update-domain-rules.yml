@@ -1,0 +1,29 @@
+name: Update domestic and global Shadowrocket rules
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: shadowrocket-domain-rules
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fetch and validate maintained rule lists
+        run: python3 scripts/update-domain-rules.py
+      - name: Verify checked-in references and rule syntax
+        run: python3 scripts/update-domain-rules.py --check
+      - name: Commit changed rule data only
+        run: |
+          git add rules/china.list rules/global.list
+          if ! git diff --cached --quiet; then
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'chore: refresh China and Global rule mirrors'
+            git push
+          fi

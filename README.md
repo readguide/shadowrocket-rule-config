@@ -1,0 +1,7 @@
+# Shadowrocket domestic / global domain rules
+
+The four public configurations retain their existing policy groups, service rules and fallbacks. Their broad China/Global RULE-SET references point to this repository's `rules/china.list` and `rules/global.list` mirrors. A daily GitHub Actions workflow refreshes these files from blackmatrix7's maintained QuantumultX China/Global lists. It validates rule syntax and minimum size before committing; a failed fetch or validation leaves the previous published lists intact. GitHub's scheduled workflow may run late and Shadowrocket must refresh its cached rules to consume a new revision.
+
+[h2y/Shadowrocket-ADBlock-Rules](https://github.com/h2y/Shadowrocket-ADBlock-Rules) was reviewed for the domestic/foreign policy model: local/CN direct, known global domains proxied, with different whitelist and blacklist final actions. That repository is archived, with its top500 lists marked 2019, so it is **not** used as a live update source or blindly merged into China (its direct list includes non-Chinese sites). Existing service-specific rules remain ahead of the broad lists. Blacklist versions preserve `Global.list -> PROXY` and `FINAL,DIRECT`; whitelist versions preserve `FINAL,PROXY`.
+
+Run locally: `python3 scripts/update-domain-rules.py --check` (offline validation), or `python3 scripts/update-domain-rules.py` (refresh sources). The public repository contains no subscription URLs or proxy credentials.

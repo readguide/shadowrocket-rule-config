@@ -42,11 +42,11 @@ def check_references():
     for filename in FILES:
         body = (ROOT / filename).read_text()
         for name in ('china', 'global'):
-            expected = f'RULE-SET,{MIRROR}{name}.list,{"DIRECT" if name == "china" else "PROXY"}'
+            expected = f'RULE-SET,{MIRROR}{name}.list,{"DIRECT" if name == "china" else "自动代理"}'
             if body.splitlines().count(expected) != 1:
                 raise ValueError(f'{filename}: missing or duplicate {name} mirror reference')
         fallbacks = [line for line in body.splitlines() if line.startswith('FINAL,')]
-        if fallbacks != [('FINAL,DIRECT' if filename.startswith('blacklist') else 'FINAL,PROXY')]:
+        if fallbacks != [('FINAL,DIRECT' if filename.startswith('blacklist') else 'FINAL,自动代理')]:
             raise ValueError(f'{filename}: fallback policy changed')
 
 
